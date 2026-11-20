@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kenwave Studio</title>
+<meta name="description" content="Kenwave is a recording studio for artists who want their sound to travel. Book a session online.">
+<meta property="og:title" content="Kenwave Studio"><meta property="og:description" content="Record, mix and master at Kenwave.">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* ===== THEME (owner can change accents in the dashboard) ===== */
+:root{--bg:#070A17;--s:#0D1226;--v:#7B5CFF;--a:#2DE2D0;--ink:#F4F6FF;--mute:#9AA3C7;--line:rgba(244,246,255,.12);
+--d:'Unbounded','Trebuchet MS',sans-serif;--b:'Manrope',system-ui,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070A17}}
+:root[data-theme="dark"]{--bg:#070A17}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(70px + env(safe-area-inset-top,0px))}
+body{background:var(--bg);color:var(--ink);font:400 1.05rem/1.7 var(--b);overflow-x:hidden}
+h1,h2,h3{font-family:var(--d);line-height:1.08;letter-spacing:-.03em;font-weight:800}
+h2{font-size:clamp(1.9rem,4.6vw,3.3rem);margin-bottom:1rem}
+p{color:var(--mute);max-width:58ch}a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+section{position:relative;padding:7rem 1.4rem;isolation:isolate;overflow:hidden}
+.w{max-width:1120px;margin:auto}
+.bg{position:absolute;inset:0;z-index:-2;background:var(--g) center/cover}
+.bg video{width:100%;height:100%;object-fit:cover}
+.ov::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,10,23,.7),rgba(7,10,23,.45) 45%,rgba(7,10,23,.96))}
+.glow{background:radial-gradient(700px 400px at 85% 0,rgba(123,92,255,.22),transparent 60%),radial-gradient(600px 400px at 0 100%,rgba(45,226,208,.14),transparent 60%),var(--bg)}
+#hero{--g:radial-gradient(900px 600px at 70% 20%,color-mix(in srgb,var(--v) 55%,#070A17),transparent 60%),radial-gradient(700px 500px at 10% 90%,color-mix(in srgb,var(--a) 45%,#070A17),transparent 60%),#0D1226}
+#tour{--g:linear-gradient(120deg,color-mix(in srgb,var(--v) 35%,#070A17),color-mix(in srgb,var(--a) 30%,#070A17))}#booking{--g:radial-gradient(800px 500px at 20% 0,color-mix(in srgb,var(--v) 50%,#070A17),transparent 60%),#0D1226}
+nav{position:fixed;inset:0 0 auto;z-index:50;padding:calc(.9rem + env(safe-area-inset-top,0px)) 1.4rem .9rem;display:flex;justify-content:space-between;align-items:center;transition:.3s}
+nav.s{background:rgba(7,10,23,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.logo{font:800 1.15rem var(--d);display:flex;align-items:center;gap:.5rem}
+.logo svg{width:30px;height:22px}
+.links{display:flex;gap:1.5rem;align-items:center;font-size:.92rem;font-weight:600}
+.links a:not(.btn){color:var(--mute);transition:.2s}.links a.on,.links a:hover{color:var(--a)}
+.btn{display:inline-block;background:linear-gradient(100deg,var(--v),var(--a));color:#06081a;font:800 .92rem var(--b);padding:.9rem 1.6rem;border-radius:999px;border:0;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 12px 36px -10px var(--a)}
+.btn.g{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.burger{display:none;background:none;border:0;color:var(--ink);font-size:1.7rem;position:relative;z-index:60;cursor:pointer}
+@media(max-width:880px){.burger{display:block}.links{position:fixed;inset:0;flex-direction:column;justify-content:center;gap:1.4rem;font:800 1.8rem var(--d);background:var(--bg);transform:translateY(-100%);transition:transform .5s cubic-bezier(.7,0,.2,1)}.links.open{transform:none}}
+#hero{min-height:100svh;display:flex;align-items:center}
+canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+#hero h1{font-size:clamp(2.8rem,10vw,8rem);max-width:12ch}
+#hero h1 span{display:block;overflow:hidden}
+#hero h1 span i{display:block;font-style:normal;transform:translateY(110%);animation:up 1s cubic-bezier(.2,.8,.2,1) forwards}
+#hero h1 span:nth-child(2) i{animation-delay:.15s;background:linear-gradient(100deg,var(--v),var(--a));-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes up{to{transform:none}}
+#hero p{margin:1.5rem 0 2rem;font-size:1.15rem;color:var(--ink);opacity:0;animation:fade 1s .6s forwards}
+#hero .r{opacity:0;animation:fade 1s .8s forwards}@keyframes fade{to{opacity:1}}
+.r{display:flex;gap:.9rem;flex-wrap:wrap}
+.mq{overflow:hidden;border-block:1px solid var(--line);padding:1.1rem 0;background:var(--s)}
+.mq div{display:flex;gap:3rem;width:max-content;animation:mq 30s linear infinite;font:800 1.2rem var(--d);color:var(--mute)}
+.mq div:hover{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.st{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;margin-top:3rem}
+.st strong{display:block;font:800 clamp(2rem,4.5vw,3.2rem) var(--d);background:linear-gradient(100deg,var(--v),var(--a));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sv{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-top:2.5rem}
+.sv div{background:var(--s);border:1px solid var(--line);border-radius:24px;padding:2rem;transition:transform .3s,border-color .3s;position:relative;overflow:hidden}
+.sv div::before{content:"";position:absolute;inset:auto -20% -60% -20%;height:70%;background:radial-gradient(closest-side,rgba(123,92,255,.35),transparent);opacity:0;transition:.4s}
+.sv div:hover{transform:translateY(-6px);border-color:var(--v)}.sv div:hover::before{opacity:1}
+.sv h3{font-size:1.2rem;margin-bottom:.6rem}.sv em{display:block;margin-top:1rem;font-style:normal;color:var(--a);font-weight:800}
+#tour{min-height:85vh;display:flex;align-items:center}
+.tr{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.3rem;margin-top:2.5rem}
+.tier{background:var(--s);border:1px solid var(--line);border-radius:26px;padding:2.2rem 1.8rem}
+.tier.pop{background:linear-gradient(160deg,var(--v),#2b6fe0 60%,var(--a));border:0;color:#06081a;transform:translateY(-10px)}
+.tier.pop p,.tier.pop li{color:#10163a}
+.tier b{display:block;font:800 2.8rem var(--d);margin:.6rem 0}
+.tier ul{list-style:none;padding:0;margin-top:1rem}.tier li{padding:.5rem 0;border-top:1px solid var(--line);color:var(--mute)}
+.bk{display:grid;gap:2.5rem}@media(min-width:900px){.bk{grid-template-columns:.85fr 1.15fr;align-items:center}}
+.card{background:rgba(9,13,32,.72);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:28px;padding:1.8rem}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.f .x{grid-column:1/-1}@media(max-width:560px){.f{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;font-weight:800;margin-bottom:.35rem}
+:root{color-scheme:dark}
+input,select,textarea{width:100%;background:#141a33;border:1px solid var(--line);border-radius:12px;color:#F4F6FF;-webkit-text-fill-color:#F4F6FF;caret-color:#F4F6FF;color-scheme:dark;font:inherit;padding:.75rem .9rem}
+input::placeholder,textarea::placeholder{color:#7f89b3;-webkit-text-fill-color:#7f89b3;opacity:1}
+input:-webkit-autofill,input:-webkit-autofill:focus,textarea:-webkit-autofill{-webkit-text-fill-color:#F4F6FF;caret-color:#F4F6FF;box-shadow:0 0 0 100px #141a33 inset;transition:background-color 9999s}
+input[type=date]::-webkit-calendar-picker-indicator{filter:invert(1)}
+select option{background:#141a33;color:#F4F6FF}input:focus,select:focus,textarea:focus{border-color:var(--a);outline:0}
+.err{color:#ff8fb0;font-size:.8rem;min-height:1em;display:block}
+.sl{display:flex;flex-wrap:wrap;gap:.5rem}.sl button{background:none;border:1px solid var(--line);color:var(--ink);padding:.5rem .9rem;border-radius:999px;font:inherit;font-size:.88rem;cursor:pointer}
+.sl button.on{background:var(--a);color:#06081a;border-color:var(--a)}.sl button:disabled{opacity:.3;text-decoration:line-through;cursor:not-allowed}
+.est{display:flex;justify-content:space-between;align-items:center;margin:1.2rem 0 1rem;padding-top:1rem;border-top:1px solid var(--line)}.est b{font:800 1.8rem var(--d);color:var(--a)}
+.ct{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:2rem}.ct h3{font-size:.95rem;color:var(--a);margin-bottom:.4rem}
+.ct a{display:block;color:var(--mute)}.ct a:hover{color:var(--ink)}
+footer{padding:2rem 1.4rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;color:var(--mute);font-size:.88rem}
+footer a{cursor:pointer;opacity:.6}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}.rv.in{opacity:1;transform:none}
+.mo{position:fixed;inset:0;z-index:100;background:rgba(5,7,16,.88);display:none;place-items:center;padding:1.4rem}.mo.show{display:grid}
+.mo .card{max-width:440px;width:100%;background:var(--s)}
+/* ===== OWNER DASHBOARD ===== */
+#adm{position:fixed;inset:0;z-index:200;background:var(--bg);display:none;grid-template-columns:200px 1fr;overflow:hidden}
+#adm.show{display:grid}
+#adm aside{border-right:1px solid var(--line);padding:1.2rem;display:flex;flex-direction:column;gap:.3rem;background:var(--s)}
+#adm aside button{text-align:left;background:none;border:0;color:var(--mute);font:700 .92rem var(--b);padding:.7rem .9rem;border-radius:10px;cursor:pointer}
+#adm aside button.on{background:rgba(123,92,255,.2);color:var(--ink)}
+#adm main{overflow:auto;padding:1.6rem}
+#adm h2{font-size:1.5rem}.ar{background:var(--s);border:1px solid var(--line);border-radius:16px;padding:1.1rem;margin:1rem 0;display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.ar h3{grid-column:1/-1;font-size:.95rem;color:var(--a)}
+.bar{position:sticky;bottom:0;background:var(--bg);padding:1rem 0;display:flex;gap:.7rem;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:1.5rem}
+.wa{position:fixed;right:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));z-index:45;background:#25D366;color:#06210f;font-weight:800;padding:.8rem 1.2rem;border-radius:999px;box-shadow:0 10px 30px -8px #25D366}audio{width:100%;margin-top:.6rem}.fq{border-bottom:1px solid var(--line);padding:1.1rem 0}.fq summary{cursor:pointer;font-weight:800;list-style:none}.fq summary::after{content:"+";float:right;color:var(--a)}.fq[open] summary::after{content:"–"}.fq p{margin-top:.6rem}
+.lgw{position:fixed;inset:0;z-index:400;display:grid;place-items:center;padding:1.4rem;background:radial-gradient(700px 500px at 20% 10%,color-mix(in srgb,var(--v) 40%,transparent),transparent 60%),radial-gradient(600px 500px at 90% 90%,color-mix(in srgb,var(--a) 30%,transparent),transparent 60%),rgba(5,7,16,.94);backdrop-filter:blur(14px)}
+.lgc{position:relative;width:100%;max-width:420px;background:rgba(13,18,38,.88);border:1px solid var(--line);border-radius:28px;padding:2.2rem 2rem;box-shadow:0 40px 100px -30px #000}
+.lgl{display:flex;align-items:center;gap:.6rem;font:800 1.1rem var(--d);margin-bottom:1.6rem}.lgl svg{width:30px;height:22px}
+.lgc h2{font-size:1.5rem;margin-bottom:.5rem}.lgc form{display:grid;gap:.5rem;margin-top:1.2rem}.lgc .btn{margin-top:.8rem;width:100%}
+.pw{position:relative}.pw input{padding-right:4.5rem}.eye{position:absolute;right:.6rem;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--a);font:700 .8rem var(--b);cursor:pointer}
+.lgx{position:absolute;top:1rem;right:1rem;background:none;border:0;color:var(--mute);cursor:pointer;font-size:1.1rem}
+.otp{text-align:center;font:800 1.8rem var(--d);letter-spacing:.45em;padding-left:.45em}
+.qr{display:block;margin:1rem auto .4rem;width:170px;height:170px;background:#fff;border-radius:16px;padding:8px}.sec{font-size:.8rem;text-align:center;word-break:break-all;margin:0 auto}.note{font-size:.8rem;margin-top:1.2rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--a);color:#06081a;font-weight:800;padding:.8rem 1.4rem;border-radius:999px;z-index:300;opacity:0;pointer-events:none;transition:.3s}.toast.show{opacity:1}
+@media(max-width:720px){#adm{grid-template-columns:1fr;grid-template-rows:auto 1fr}#adm aside{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}#adm aside button{white-space:nowrap}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,#hero p,#hero .r{opacity:1;transform:none}#hero h1 span i{transform:none}}
+</style></head><body>
+<div id="site"></div>
+
+<div class="mo" id="mo"><div class="card"><h2 id="mh">Booking received</h2><p id="sum" style="margin:.6rem 0 1.2rem"></p><div id="mlk" style="margin-bottom:1.2rem"></div><button class="btn" onclick="mo.classList.remove('show')">Done</button></div></div>
+
+<script>
+/* ===== 1. CONFIG & STATE =====
+   OWNER PASSWORD: change it here and in the dashboard's Theme tab. localStorage is stored in
+   the owner's browser only, so real protection and multi-device sync need a backend (see adapters). */
+const DEFAULTS={password:"kenwave2026",name:"Kenwave",tagline:"Record, mix and master in a room built for your sound.",
+about:"Kenwave is a recording studio with a treated live room, two vocal booths and a control room tuned for honest monitoring. Bring a rough idea or a finished song, and we will help it travel.",
+stats:[["500","artists recorded"],["1200","tracks released"],["12","years of sound"],["3","rooms"]],
+media:{hero:{type:"video",src:"",poster:""},tour:{type:"video",src:"",poster:""},booking:{type:"image",src:"",poster:""}},
+services:[{n:"Recording",d:"Vocals, bands and live instruments with a dedicated engineer.",p:40},{n:"Mixing",d:"Balance, depth and punch with two revision rounds.",p:50},{n:"Mastering",d:"Final polish for streaming, vinyl and radio.",p:45},{n:"Production",d:"Beats, arrangement and session players.",p:60},{n:"Podcast and voice-over",d:"Clean audio for shows, ads and audiobooks.",p:35},{n:"Rehearsal",d:"A full backline room for loud bands.",p:20}],
+tiers:[{n:"Hourly",p:"40",u:"per hour",f:"Engineer included, Vocal booth or live room",pop:false},{n:"Half day",p:"140",u:"4 hours",f:"Engineer and assistant, Rough mix included, Free file delivery",pop:true},{n:"Full day",p:"250",u:"8 hours",f:"All rooms and gear, One mixed song, Priority scheduling",pop:false}],
+currency:"$",logo:"",showName:true,logoH:32,endpoint:"",pay:"",policy:"Cancel at least 24 hours before your session for a full refund.",blockedDates:"",audio:[{t:"Sample track 1",u:""},{t:"Sample track 2",u:""}],quotes:[],faq:[{q:"Do I need to bring anything?",a:"Bring your lyrics, instruments and any reference tracks."},{q:"How do I pay?",a:"A deposit holds your slot and the rest is paid on the day."}],contact:{address:"",phone:"",email:"",whatsapp:"",hours:"",map:""},
+social:{instagram:"",tiktok:"",youtube:"",x:"",facebook:"",spotify:""},blocked:"12:00,15:00",v:"#7B5CFF",a:"#2DE2D0"};
+/* ===== OPTIONAL LIVE BACKEND (Supabase) =====
+   Paste your project URL and anon (public) key to switch on: live availability, saved bookings,
+   settings that update for every visitor instantly, and a real email-and-password owner login.
+   Leave both empty to run without any backend. */
+const BACKEND={url:"",key:""};
+const sb=()=>BACKEND.url&&BACKEND.key;
+let tok=null,RB=null,TK=[];
+const H=a=>({apikey:BACKEND.key,Authorization:"Bearer "+(a&&tok?tok:BACKEND.key),"Content-Type":"application/json"});
+async function taken(){if(!sb())return null;try{const r=await fetch(BACKEND.url+"/rest/v1/taken_slots?select=date,time",{headers:H()});return r.ok?await r.json():null}catch(e){return null}}
+const clone=o=>JSON.parse(JSON.stringify(o));
+function extras(b){const d=b.date.replace(/-/g,""),t=b.time.replace(":","")+"00",e=String(Math.min(23,+b.time.slice(0,2)+(+b.hours||1))).padStart(2,"0")+b.time.slice(3)+"00";
+ const ics=["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT","SUMMARY:"+S.name+" session ("+b.service+")","DTSTART:"+d+"T"+t,"DTEND:"+d+"T"+e,"END:VEVENT","END:VCALENDAR"].join("\r\n");
+ return `<div class="r" style="margin-top:1rem">${S.pay?`<a class="btn" target="_blank" rel="noopener" href="${esc(S.pay)}">Pay deposit</a>`:""}<a class="btn g" download="session.ics" href="data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}">Add to calendar</a></div>${S.policy?`<p style="margin-top:1rem;font-size:.9rem">${esc(S.policy)}</p>`:""}`}
+const merge=(d,s)=>{for(const k in s){if(s[k]&&typeof s[k]==="object"&&!Array.isArray(s[k])&&d[k])merge(d[k],s[k]);else d[k]=s[k]}return d};
+/* ADAPTERS: replace these bodies with Firebase, Supabase or your API so edits reach every visitor. */
+function loadSettings(){try{return merge(clone(DEFAULTS),JSON.parse(localStorage.getItem("kw_settings")||"{}"))}catch(e){return clone(DEFAULTS)}}
+function saveSettings(S){try{localStorage.setItem("kw_settings",JSON.stringify(S));return true}catch(e){return false}}
+/* No database needed. With an endpoint (Formspree or Web3Forms) the booking is emailed to the owner automatically.
+   Without one, the visitor taps a button that sends the details to the owner's WhatsApp or email. */
+async function submitBooking(b){
+ const L=JSON.parse(localStorage.getItem("kw_bookings")||"[]");L.unshift(b);try{localStorage.setItem("kw_bookings",JSON.stringify(L))}catch(e){}
+ if(sb()){const row={name:b.name,email:b.email,phone:b.phone,service:b.service,date:b.date,time:b.time,hours:+b.hours,notes:b.notes,total:b.total};const r=await fetch(BACKEND.url+"/rest/v1/bookings",{method:"POST",headers:{...H(),Prefer:"return=minimal"},body:JSON.stringify(row)});if(r.status===409)throw new Error("taken");if(!r.ok)throw new Error("failed");if(S.endpoint)fetch(S.endpoint,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(b)}).catch(()=>{});return"sent"}
+ if(S.endpoint){const r=await fetch(S.endpoint,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(b)});if(!r.ok)throw new Error("send failed");return"sent"}
+ const msg=`Booking request for ${S.name}\nName: ${b.name}\nPhone: ${b.phone}\nEmail: ${b.email}\nService: ${b.service}\nDate: ${b.date} at ${b.time}\nHours: ${b.hours}\nEstimate: ${S.currency}${b.total}\nNotes: ${b.notes||"-"}`;
+ const c=S.contact,out=[];
+ if(c.whatsapp)out.push(`<a class="btn" target="_blank" rel="noopener" href="https://wa.me/${c.whatsapp.replace(/\D/g,"")}?text=${encodeURIComponent(msg)}">Send on WhatsApp</a>`);
+ if(c.email)out.push(`<a class="btn g" href="mailto:${esc(c.email)}?subject=${encodeURIComponent("Booking request")}&body=${encodeURIComponent(msg)}">Send by email</a>`);
+ return out.length?`<div class="r">${out.join("")}</div>`:`<p>The studio has not set up booking delivery yet. Please contact them directly.</p>`}
+let S=loadSettings();const $=s=>document.querySelector(s);
+const get=(o,p)=>p.split(".").reduce((x,k)=>x&&x[k],o);
+const set=(o,p,v)=>{const k=p.split(".");const l=k.pop();k.reduce((x,i)=>x[i],o)[l]=v};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const SOC={instagram:["Instagram","https://instagram.com/"],tiktok:["TikTok","https://tiktok.com/@"],youtube:["YouTube","https://youtube.com/@"],x:["X","https://x.com/"],facebook:["Facebook","https://facebook.com/"],spotify:["Spotify","https://open.spotify.com/artist/"]};
+const SLOTS=["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"];
+
+/* ===== 2. VISITOR SIDE ===== */
+const bg=k=>{const m=S.media[k];if(!m.src)return`<div class="bg"></div>`;
+ return m.type==="video"?`<div class="bg"><video src="${esc(m.src)}" poster="${esc(m.poster||"")}" muted loop autoplay playsinline></video></div>`:`<div class="bg" style="background-image:url('${esc(m.src)}')"></div>`};
+const logo=`<svg viewBox="0 0 30 22" fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><defs><linearGradient id="lg"><stop stop-color="#7B5CFF"/><stop offset="1" stop-color="#2DE2D0"/></linearGradient></defs><path d="M2 11h3M9 5v12M15 2v18M21 6v10M27 9v4"/></svg>`;
+function render(){
+ document.documentElement.style.setProperty("--v",S.v);document.documentElement.style.setProperty("--a",S.a);document.title=S.name+" Studio";
+ let ic=document.querySelector("link[rel=icon]");if(!ic){ic=document.createElement("link");ic.rel="icon";document.head.appendChild(ic)}
+ ic.href=S.logo||"data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 22"><path d="M2 11h3M9 5v12M15 2v18M21 6v10M27 9v4" stroke="#7B5CFF" stroke-width="3" stroke-linecap="round" fill="none"/></svg>');
+ const c=S.contact,soc=Object.keys(SOC).filter(k=>S.social[k]);
+ const names=S.services.map(s=>esc(s.n));const mq=[...names,...names,...names,...names].map(n=>`<span>${n}</span>`).join("");
+ $("#site").innerHTML=`
+ <nav id="nav"><a class="logo" href="#hero">${S.logo?`<img src="${esc(S.logo)}" alt="" style="height:${+S.logoH||32}px;max-width:200px;object-fit:contain">`:logo}${S.showName===false?"":esc(S.name)}</a><button class="burger" id="bg" aria-label="Menu" aria-expanded="false">☰</button>
+ <div class="links" id="lk"><a href="#about">About</a><a href="#services">Services</a><a href="#tour">Tour</a><a href="#pricing">Pricing</a><a href="#contact">Contact</a><a class="btn" href="#booking">Book a session</a></div></nav>
+ <section id="hero" class="ov">${bg("hero")}<canvas id="cv"></canvas><div class="w"><h1><span><i>Your sound,</i></span><span><i>amplified.</i></span></h1><p>${esc(S.tagline)}</p><div class="r"><a class="btn" href="#booking">Book a session</a><a class="btn g" href="#services">Explore services</a></div></div></section>
+ <div class="mq"><div>${mq}</div></div>
+ <section id="about" class="glow"><div class="w rv"><h2>Built around<br>how you sound.</h2><p>${esc(S.about)}</p><div class="st">${S.stats.map(s=>`<div><strong data-n="${esc(s[0])}">0</strong>${esc(s[1])}</div>`).join("")}</div></div></section>
+ <section id="services"><div class="w rv"><h2>What we do</h2><p>Book one service or take a song from first take to final master.</p><div class="sv">${S.services.map(s=>`<div><h3>${esc(s.n)}</h3><p>${esc(s.d)}</p><em>From ${esc(S.currency)}${esc(s.p)}/hr</em></div>`).join("")}</div></div></section>
+ ${S.audio.some(a=>a.u)?`<section id="music" class="glow"><div class="w rv"><h2>Hear the work</h2><p>Press play on a few recent sessions.</p><div class="tr">${S.audio.filter(a=>a.u).map(a=>`<div class="tier"><h3 style="font-size:1rem">${esc(a.t)}</h3><audio controls preload="none" src="${esc(a.u)}"></audio></div>`).join("")}</div></div></section>`:""}<section id="tour" class="ov">${bg("tour")}<div class="w rv"><h2>Step inside<br>${esc(S.name)}.</h2><p>See the rooms, the gear and the lounge. Ask for a free tour with any booking.</p><div class="r" style="margin-top:1.6rem"><a class="btn" href="#booking">Book a tour</a></div></div></section>
+ <section id="pricing" class="glow"><div class="w rv"><h2>Simple rates</h2><p>Every session includes an engineer and your files in WAV.</p><div class="tr">${S.tiers.map(t=>`<div class="tier${t.pop?" pop":""}"><h3>${esc(t.n)}${t.pop?" · Most popular":""}</h3><b>${esc(S.currency)}${esc(t.p)}</b><p>${esc(t.u)}</p><ul>${t.f.split(",").map(x=>`<li>${esc(x.trim())}</li>`).join("")}</ul></div>`).join("")}</div></div></section>
+ ${S.quotes.length?`<section id="reviews"><div class="w rv"><h2>What artists say</h2><div class="tr">${S.quotes.map(q=>`<div class="tier"><p style="color:var(--ink)">“${esc(q.t)}”</p><h3 style="font-size:1rem;margin-top:1rem">${esc(q.n)}</h3></div>`).join("")}</div></div></section>`:""}<section id="booking" class="ov">${bg("booking")}<div class="w bk"><div class="rv"><h2>Book your session</h2><p>Pick a date and a time. We confirm every request by email or phone.</p>${c.whatsapp?`<div class="r" style="margin-top:1.5rem"><a class="btn g" target="_blank" rel="noopener" href="https://wa.me/${esc(c.whatsapp.replace(/\D/g,""))}?text=${encodeURIComponent("Hi, I'd like to book a session at "+S.name)}">Book on WhatsApp</a></div>`:""}</div>
+ <form class="card" id="fm" novalidate><div class="f">
+ <div><label for="nm">Full name</label><input id="nm" autocomplete="name"><span class="err"></span></div>
+ <div><label for="em">Email</label><input id="em" type="email" autocomplete="email"><span class="err"></span></div>
+ <div><label for="ph">Phone</label><input id="ph" type="tel" autocomplete="tel"><span class="err"></span></div>
+ <div><label for="sv">Service</label><select id="sv">${S.services.map((s,i)=>`<option value="${i}">${esc(s.n)} (${esc(S.currency)}${esc(s.p)}/hr)</option>`).join("")}</select></div>
+ <div><label for="dt">Date</label><input id="dt" type="date"><span class="err"></span></div>
+ <div><label for="hr">Hours</label><input id="hr" type="number" min="1" max="12" value="2"></div>
+ <div class="x"><label>Time slot</label><div class="sl" id="sl"></div><span class="err" id="se"></span></div>
+ <div class="x"><label for="nt">Notes (optional)</label><textarea id="nt" rows="2"></textarea></div></div>
+ <div class="est"><span>Estimated total</span><b id="es"></b></div><button class="btn" style="width:100%" id="sb">Request this session</button></form></div></section>
+ ${S.faq.length?`<section id="faq"><div class="w rv"><h2>Good to know</h2>${S.faq.map(f=>`<details class="fq"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join("")}</div></section>`:""}<section id="contact" class="glow"><div class="w rv"><h2>Find ${esc(S.name)}</h2>
+ ${c.address||c.hours||c.phone||c.email||soc.length?`<div class="ct">${c.address?`<div><h3>Location</h3><p>${esc(c.address)}</p>${c.map?`<a target="_blank" rel="noopener" href="${esc(c.map)}">Open in maps</a>`:""}</div>`:""}${c.hours?`<div><h3>Hours</h3><p>${esc(c.hours)}</p></div>`:""}${c.phone||c.email?`<div><h3>Contact</h3>${c.phone?`<a href="tel:${esc(c.phone)}">${esc(c.phone)}</a>`:""}${c.email?`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`:""}</div>`:""}${soc.length?`<div><h3>Follow</h3>${soc.map(k=>`<a target="_blank" rel="noopener" href="${S.social[k].startsWith("http")?esc(S.social[k]):SOC[k][1]+esc(S.social[k].replace("@",""))}">${SOC[k][0]}</a>`).join("")}</div>`:""}</div>`:`<p>Contact details will appear here once the owner adds them.</p>`}</div></section>
+ ${c.whatsapp?`<a class="wa" target="_blank" rel="noopener" href="https://wa.me/${esc(c.whatsapp.replace(/\D/g,""))}">WhatsApp</a>`:""}<footer><span>© 2026 ${esc(S.name)} Studio</span></footer>`;
+ initSite()}
+function initSite(){
+ const nav=$("#nav"),lk=$("#lk"),bt=$("#bg");
+ bt.onclick=()=>{const o=lk.classList.toggle("open");bt.textContent=o?"✕":"☰";bt.setAttribute("aria-expanded",o)};
+ lk.querySelectorAll("a").forEach(a=>a.onclick=()=>{lk.classList.remove("open");bt.textContent="☰"});
+ 
+ const sc=()=>nav.classList.toggle("s",scrollY>40);sc();addEventListener("scroll",sc,{passive:true});
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add("in");
+  e.target.querySelectorAll("[data-n]").forEach(n=>{const t=+n.dataset.n||0,s=performance.now();(function f(now){const p=Math.min((now-s)/1400,1);n.textContent=Math.round(t*(1-Math.pow(1-p,3)))+(t>=100?"+":"");if(p<1)requestAnimationFrame(f)})(s)});io.unobserve(e.target)}),{threshold:.2});
+ document.querySelectorAll(".rv").forEach(e=>io.observe(e));
+ const vo=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?e.target.play().catch(()=>{}):e.target.pause()));
+ document.querySelectorAll(".bg video").forEach(v=>vo.observe(v));
+ const ls=[...lk.querySelectorAll("a[href^='#']")];
+ document.querySelectorAll("section[id]").forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)ls.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+s.id))}),{rootMargin:"-45% 0px -50% 0px"}).observe(s));
+ waves();booking()}
+/* Interactive wave canvas */
+let raf;function waves(){cancelAnimationFrame(raf);const cv=$("#cv"),x=cv.getContext("2d");let W,H,mx=.5,my=.5,sm=.5;
+ const rs=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight};rs();addEventListener("resize",rs);
+ const mv=e=>{const r=cv.getBoundingClientRect(),p=e.touches?e.touches[0]:e;mx=(p.clientX-r.left)/r.width;my=(p.clientY-r.top)/r.height};
+ addEventListener("pointermove",mv);addEventListener("touchmove",mv,{passive:true});
+ const red=matchMedia("(prefers-reduced-motion:reduce)").matches;let t=0;
+ const cols=[S.v,S.a,"#ffffff"];
+ (function f(){t+=red?0:.012;sm+=(mx-sm)*.05;x.clearRect(0,0,W,H);
+  for(let i=0;i<7;i++){x.beginPath();x.lineWidth=1.4;x.strokeStyle=cols[i%3];x.globalAlpha=.16+.5*(1-i/7)*(i%3===2?.3:1);
+   for(let px=0;px<=W;px+=8){const n=px/W,amp=(24+i*10)*(1+Math.sin(n*3+t)*.4)*(.5+Math.abs(sm-n)*-1+1)*(1.2-my*.4);
+    const y=H*.62+Math.sin(n*9+t*2+i*.6)*amp*Math.exp(-Math.pow((n-sm)*1.6,2))+Math.sin(n*3.5-t+i)*18;
+    px?x.lineTo(px,y):x.moveTo(px,y)}x.stroke()}
+  if(document.hidden||scrollY>innerHeight)raf=setTimeout(()=>raf=requestAnimationFrame(f),250);else raf=requestAnimationFrame(f)})()}
+
+/* ===== 3. BOOKING ===== */
+function booking(){let slot="";const dt=$("#dt");dt.min=dt.value=new Date().toISOString().slice(0,10);
+ const bl=S.blocked.split(",").map(s=>s.trim());
+ const paint=()=>{const day=TK.filter(x=>x.date===dt.value).map(x=>x.time);slot="";$("#sl").innerHTML=SLOTS.map(t=>`<button type="button" ${bl.includes(t)||day.includes(t)?"disabled":""}>${t}</button>`).join("")};
+ paint();dt.addEventListener("change",paint);taken().then(r=>{if(r){TK=r;paint()}});
+ $("#sl").onclick=e=>{if(e.target.tagName!=="BUTTON")return;document.querySelectorAll("#sl button").forEach(b=>b.classList.remove("on"));e.target.classList.add("on");slot=e.target.textContent;$("#se").textContent=""};
+ const pr=()=>Math.max(1,+$("#hr").value||1)*(+S.services[$("#sv").value].p||0),up=()=>$("#es").textContent=S.currency+pr();
+ $("#sv").oninput=$("#hr").oninput=up;up();
+ $("#fm").onsubmit=async e=>{e.preventDefault();let ok=true;
+  [["nm",v=>v.trim().length>1,"Enter your full name."],["em",v=>/^\S+@\S+\.\S+$/.test(v),"Enter a valid email."],["ph",v=>v.replace(/\D/g,"").length>=7,"Enter a phone number."],["dt",v=>!!v&&!S.blockedDates.split(",").map(s=>s.trim()).includes(v),"Choose an available date."]].forEach(([i,t,m])=>{const el=$("#"+i),bad=!t(el.value);el.parentElement.querySelector(".err").textContent=bad?m:"";if(bad)ok=false});
+  if(!slot){$("#se").textContent="Pick a time slot.";ok=false}
+  if(slot){const i=SLOTS.indexOf(slot),n=Math.max(1,+$("#hr").value||1),day=TK.filter(x=>x.date===dt.value).map(x=>x.time);for(let k=0;k<n;k++){const s=SLOTS[i+k];if(!s||bl.includes(s)||day.includes(s)){$("#se").textContent="That length runs into a taken or closed time. Choose fewer hours or another slot.";ok=false;break}}}
+  if(!ok)return;
+  const b={id:Date.now(),name:$("#nm").value,email:$("#em").value,phone:$("#ph").value,service:S.services[$("#sv").value].n,date:dt.value,time:slot,hours:$("#hr").value,notes:$("#nt").value,total:pr(),status:"new"};
+  const btn=$("#sb");btn.disabled=true;btn.textContent="Sending…";
+  try{const r=await submitBooking(b);$("#mh").textContent=r==="sent"?"Booking received":"One last step";$("#sum").textContent=r==="sent"?`${b.service} on ${b.date} at ${b.time} for ${b.hours} hr. Estimate ${S.currency}${b.total}. We will contact ${b.email} to confirm.`:"Your request has not reached the studio yet. Tap a button below to send it.";$("#mlk").innerHTML=(r==="sent"?"":r)+extras(b);$("#mo").classList.add("show");$("#fm").reset();dt.value=dt.min;slot="";document.querySelectorAll("#sl button").forEach(x=>x.classList.remove("on"));up()}catch(er){$("#se").textContent=er.message==="taken"?"Someone just booked that slot. Pick another time.":"Something went wrong. Try again.";taken().then(r=>{if(r)TK=r})}
+  btn.disabled=false;btn.textContent="Request this session"}}
+
+/* On load: defaults, then settings.json published by the owner, then the owner's own unsaved draft (owner browser only). */
+(async()=>{try{const r=await fetch("settings.json",{cache:"no-store"});if(r.ok){const j=await r.json();S=merge(merge(clone(DEFAULTS),j),localStorage.getItem("kw_owner")?JSON.parse(localStorage.getItem("kw_settings")||"{}"):{})}}catch(e){}if(sb()){try{const r=await fetch(BACKEND.url+"/rest/v1/settings?id=eq.1&select=data",{headers:H()});const j=r.ok?await r.json():[];if(j[0]&&j[0].data)S=merge(S,j[0].data)}catch(e){}}
+render()})();
+</script></body></html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kenwave Owner</title><meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Kenwave is a recording studio for artists who want their sound to travel. Book a session online.">
+<meta property="og:title" content="Kenwave Studio"><meta property="og:description" content="Record, mix and master at Kenwave.">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* ===== THEME (owner can change accents in the dashboard) ===== */
+:root{--bg:#070A17;--s:#0D1226;--v:#7B5CFF;--a:#2DE2D0;--ink:#F4F6FF;--mute:#9AA3C7;--line:rgba(244,246,255,.12);
+--d:'Unbounded','Trebuchet MS',sans-serif;--b:'Manrope',system-ui,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#070A17}}
+:root[data-theme="dark"]{--bg:#070A17}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(70px + env(safe-area-inset-top,0px))}
+body{background:var(--bg);color:var(--ink);font:400 1.05rem/1.7 var(--b);overflow-x:hidden}
+h1,h2,h3{font-family:var(--d);line-height:1.08;letter-spacing:-.03em;font-weight:800}
+h2{font-size:clamp(1.9rem,4.6vw,3.3rem);margin-bottom:1rem}
+p{color:var(--mute);max-width:58ch}a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+section{position:relative;padding:7rem 1.4rem;isolation:isolate;overflow:hidden}
+.w{max-width:1120px;margin:auto}
+.bg{position:absolute;inset:0;z-index:-2;background:var(--g) center/cover}
+.bg video{width:100%;height:100%;object-fit:cover}
+.ov::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,10,23,.7),rgba(7,10,23,.45) 45%,rgba(7,10,23,.96))}
+.glow{background:radial-gradient(700px 400px at 85% 0,rgba(123,92,255,.22),transparent 60%),radial-gradient(600px 400px at 0 100%,rgba(45,226,208,.14),transparent 60%),var(--bg)}
+#hero{--g:radial-gradient(900px 600px at 70% 20%,color-mix(in srgb,var(--v) 55%,#070A17),transparent 60%),radial-gradient(700px 500px at 10% 90%,color-mix(in srgb,var(--a) 45%,#070A17),transparent 60%),#0D1226}
+#tour{--g:linear-gradient(120deg,color-mix(in srgb,var(--v) 35%,#070A17),color-mix(in srgb,var(--a) 30%,#070A17))}#booking{--g:radial-gradient(800px 500px at 20% 0,color-mix(in srgb,var(--v) 50%,#070A17),transparent 60%),#0D1226}
+nav{position:fixed;inset:0 0 auto;z-index:50;padding:calc(.9rem + env(safe-area-inset-top,0px)) 1.4rem .9rem;display:flex;justify-content:space-between;align-items:center;transition:.3s}
+nav.s{background:rgba(7,10,23,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.logo{font:800 1.15rem var(--d);display:flex;align-items:center;gap:.5rem}
+.logo svg{width:30px;height:22px}
+.links{display:flex;gap:1.5rem;align-items:center;font-size:.92rem;font-weight:600}
+.links a:not(.btn){color:var(--mute);transition:.2s}.links a.on,.links a:hover{color:var(--a)}
+.btn{display:inline-block;background:linear-gradient(100deg,var(--v),var(--a));color:#06081a;font:800 .92rem var(--b);padding:.9rem 1.6rem;border-radius:999px;border:0;cursor:pointer;transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px) scale(1.02);box-shadow:0 12px 36px -10px var(--a)}
+.btn.g{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.burger{display:none;background:none;border:0;color:var(--ink);font-size:1.7rem;position:relative;z-index:60;cursor:pointer}
+@media(max-width:880px){.burger{display:block}.links{position:fixed;inset:0;flex-direction:column;justify-content:center;gap:1.4rem;font:800 1.8rem var(--d);background:var(--bg);transform:translateY(-100%);transition:transform .5s cubic-bezier(.7,0,.2,1)}.links.open{transform:none}}
+#hero{min-height:100svh;display:flex;align-items:center}
+canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+#hero h1{font-size:clamp(2.8rem,10vw,8rem);max-width:12ch}
+#hero h1 span{display:block;overflow:hidden}
+#hero h1 span i{display:block;font-style:normal;transform:translateY(110%);animation:up 1s cubic-bezier(.2,.8,.2,1) forwards}
+#hero h1 span:nth-child(2) i{animation-delay:.15s;background:linear-gradient(100deg,var(--v),var(--a));-webkit-background-clip:text;background-clip:text;color:transparent}
+@keyframes up{to{transform:none}}
+#hero p{margin:1.5rem 0 2rem;font-size:1.15rem;color:var(--ink);opacity:0;animation:fade 1s .6s forwards}
+#hero .r{opacity:0;animation:fade 1s .8s forwards}@keyframes fade{to{opacity:1}}
+.r{display:flex;gap:.9rem;flex-wrap:wrap}
+.mq{overflow:hidden;border-block:1px solid var(--line);padding:1.1rem 0;background:var(--s)}
+.mq div{display:flex;gap:3rem;width:max-content;animation:mq 30s linear infinite;font:800 1.2rem var(--d);color:var(--mute)}
+.mq div:hover{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.st{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;margin-top:3rem}
+.st strong{display:block;font:800 clamp(2rem,4.5vw,3.2rem) var(--d);background:linear-gradient(100deg,var(--v),var(--a));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sv{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;margin-top:2.5rem}
+.sv div{background:var(--s);border:1px solid var(--line);border-radius:24px;padding:2rem;transition:transform .3s,border-color .3s;position:relative;overflow:hidden}
+.sv div::before{content:"";position:absolute;inset:auto -20% -60% -20%;height:70%;background:radial-gradient(closest-side,rgba(123,92,255,.35),transparent);opacity:0;transition:.4s}
+.sv div:hover{transform:translateY(-6px);border-color:var(--v)}.sv div:hover::before{opacity:1}
+.sv h3{font-size:1.2rem;margin-bottom:.6rem}.sv em{display:block;margin-top:1rem;font-style:normal;color:var(--a);font-weight:800}
+#tour{min-height:85vh;display:flex;align-items:center}
+.tr{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.3rem;margin-top:2.5rem}
+.tier{background:var(--s);border:1px solid var(--line);border-radius:26px;padding:2.2rem 1.8rem}
+.tier.pop{background:linear-gradient(160deg,var(--v),#2b6fe0 60%,var(--a));border:0;color:#06081a;transform:translateY(-10px)}
+.tier.pop p,.tier.pop li{color:#10163a}
+.tier b{display:block;font:800 2.8rem var(--d);margin:.6rem 0}
+.tier ul{list-style:none;padding:0;margin-top:1rem}.tier li{padding:.5rem 0;border-top:1px solid var(--line);color:var(--mute)}
+.bk{display:grid;gap:2.5rem}@media(min-width:900px){.bk{grid-template-columns:.85fr 1.15fr;align-items:center}}
+.card{background:rgba(9,13,32,.72);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:28px;padding:1.8rem}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.f .x{grid-column:1/-1}@media(max-width:560px){.f{grid-template-columns:1fr}}
+label{display:block;font-size:.82rem;font-weight:800;margin-bottom:.35rem}
+:root{color-scheme:dark}
+input,select,textarea{width:100%;background:#141a33;border:1px solid var(--line);border-radius:12px;color:#F4F6FF;-webkit-text-fill-color:#F4F6FF;caret-color:#F4F6FF;color-scheme:dark;font:inherit;padding:.75rem .9rem}
+input::placeholder,textarea::placeholder{color:#7f89b3;-webkit-text-fill-color:#7f89b3;opacity:1}
+input:-webkit-autofill,input:-webkit-autofill:focus,textarea:-webkit-autofill{-webkit-text-fill-color:#F4F6FF;caret-color:#F4F6FF;box-shadow:0 0 0 100px #141a33 inset;transition:background-color 9999s}
+input[type=date]::-webkit-calendar-picker-indicator{filter:invert(1)}
+select option{background:#141a33;color:#F4F6FF}input:focus,select:focus,textarea:focus{border-color:var(--a);outline:0}
+.err{color:#ff8fb0;font-size:.8rem;min-height:1em;display:block}
+.sl{display:flex;flex-wrap:wrap;gap:.5rem}.sl button{background:none;border:1px solid var(--line);color:var(--ink);padding:.5rem .9rem;border-radius:999px;font:inherit;font-size:.88rem;cursor:pointer}
+.sl button.on{background:var(--a);color:#06081a;border-color:var(--a)}.sl button:disabled{opacity:.3;text-decoration:line-through;cursor:not-allowed}
+.est{display:flex;justify-content:space-between;align-items:center;margin:1.2rem 0 1rem;padding-top:1rem;border-top:1px solid var(--line)}.est b{font:800 1.8rem var(--d);color:var(--a)}
+.ct{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:2rem}.ct h3{font-size:.95rem;color:var(--a);margin-bottom:.4rem}
+.ct a{display:block;color:var(--mute)}.ct a:hover{color:var(--ink)}
+footer{padding:2rem 1.4rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;color:var(--mute);font-size:.88rem}
+footer a{cursor:pointer;opacity:.6}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}.rv.in{opacity:1;transform:none}
+.mo{position:fixed;inset:0;z-index:100;background:rgba(5,7,16,.88);display:none;place-items:center;padding:1.4rem}.mo.show{display:grid}
+.mo .card{max-width:440px;width:100%;background:var(--s)}
+/* ===== OWNER DASHBOARD ===== */
+#adm{position:fixed;inset:0;z-index:200;background:var(--bg);display:none;grid-template-columns:200px 1fr;overflow:hidden}
+#adm.show{display:grid}
+#adm aside{border-right:1px solid var(--line);padding:1.2rem;display:flex;flex-direction:column;gap:.3rem;background:var(--s)}
+#adm aside button{text-align:left;background:none;border:0;color:var(--mute);font:700 .92rem var(--b);padding:.7rem .9rem;border-radius:10px;cursor:pointer}
+#adm aside button.on{background:rgba(123,92,255,.2);color:var(--ink)}
+#adm main{overflow:auto;padding:1.6rem}
+#adm h2{font-size:1.5rem}.ar{background:var(--s);border:1px solid var(--line);border-radius:16px;padding:1.1rem;margin:1rem 0;display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.ar h3{grid-column:1/-1;font-size:.95rem;color:var(--a)}
+.bar{position:sticky;bottom:0;background:var(--bg);padding:1rem 0;display:flex;gap:.7rem;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:1.5rem}
+.wa{position:fixed;right:1.2rem;bottom:calc(1.2rem + env(safe-area-inset-bottom,0px));z-index:45;background:#25D366;color:#06210f;font-weight:800;padding:.8rem 1.2rem;border-radius:999px;box-shadow:0 10px 30px -8px #25D366}audio{width:100%;margin-top:.6rem}.fq{border-bottom:1px solid var(--line);padding:1.1rem 0}.fq summary{cursor:pointer;font-weight:800;list-style:none}.fq summary::after{content:"+";float:right;color:var(--a)}.fq[open] summary::after{content:"–"}.fq p{margin-top:.6rem}
+.lgw{position:fixed;inset:0;z-index:400;display:grid;place-items:center;padding:1.4rem;background:radial-gradient(700px 500px at 20% 10%,color-mix(in srgb,var(--v) 40%,transparent),transparent 60%),radial-gradient(600px 500px at 90% 90%,color-mix(in srgb,var(--a) 30%,transparent),transparent 60%),rgba(5,7,16,.94);backdrop-filter:blur(14px)}
+.lgc{position:relative;width:100%;max-width:420px;background:rgba(13,18,38,.88);border:1px solid var(--line);border-radius:28px;padding:2.2rem 2rem;box-shadow:0 40px 100px -30px #000}
+.lgl{display:flex;align-items:center;gap:.6rem;font:800 1.1rem var(--d);margin-bottom:1.6rem}.lgl svg{width:30px;height:22px}
+.lgc h2{font-size:1.5rem;margin-bottom:.5rem}.lgc form{display:grid;gap:.5rem;margin-top:1.2rem}.lgc .btn{margin-top:.8rem;width:100%}
+.pw{position:relative}.pw input{padding-right:4.5rem}.eye{position:absolute;right:.6rem;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--a);font:700 .8rem var(--b);cursor:pointer}
+.lgx{position:absolute;top:1rem;right:1rem;background:none;border:0;color:var(--mute);cursor:pointer;font-size:1.1rem}
+.otp{text-align:center;font:800 1.8rem var(--d);letter-spacing:.45em;padding-left:.45em}
+.qr{display:block;margin:1rem auto .4rem;width:170px;height:170px;background:#fff;border-radius:16px;padding:8px}.sec{font-size:.8rem;text-align:center;word-break:break-all;margin:0 auto}.note{font-size:.8rem;margin-top:1.2rem}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--a);color:#06081a;font-weight:800;padding:.8rem 1.4rem;border-radius:999px;z-index:300;opacity:0;pointer-events:none;transition:.3s}.toast.show{opacity:1}
+@media(max-width:720px){#adm{grid-template-columns:1fr;grid-template-rows:auto 1fr}#adm aside{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}#adm aside button{white-space:nowrap}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,#hero p,#hero .r{opacity:1;transform:none}#hero h1 span i{transform:none}}
+.lgx{display:none}</style></head><body>
+<div id="adm"><aside id="tabs"></aside><main id="pane"></main></div>
+<div class="toast" id="toast"></div>
+<script>const SITE_URL="index.html",SETTINGS_URL="settings.json"; /* the public page and the published settings file */
+
+/* ===== 1. CONFIG & STATE =====
+   OWNER PASSWORD: change it here and in the dashboard's Theme tab. localStorage is stored in
+   the owner's browser only, so real protection and multi-device sync need a backend (see adapters). */
+const DEFAULTS={password:"kenwave2026",name:"Kenwave",tagline:"Record, mix and master in a room built for your sound.",
+about:"Kenwave is a recording studio with a treated live room, two vocal booths and a control room tuned for honest monitoring. Bring a rough idea or a finished song, and we will help it travel.",
+stats:[["500","artists recorded"],["1200","tracks released"],["12","years of sound"],["3","rooms"]],
+media:{hero:{type:"video",src:"",poster:""},tour:{type:"video",src:"",poster:""},booking:{type:"image",src:"",poster:""}},
+services:[{n:"Recording",d:"Vocals, bands and live instruments with a dedicated engineer.",p:40},{n:"Mixing",d:"Balance, depth and punch with two revision rounds.",p:50},{n:"Mastering",d:"Final polish for streaming, vinyl and radio.",p:45},{n:"Production",d:"Beats, arrangement and session players.",p:60},{n:"Podcast and voice-over",d:"Clean audio for shows, ads and audiobooks.",p:35},{n:"Rehearsal",d:"A full backline room for loud bands.",p:20}],
+tiers:[{n:"Hourly",p:"40",u:"per hour",f:"Engineer included, Vocal booth or live room",pop:false},{n:"Half day",p:"140",u:"4 hours",f:"Engineer and assistant, Rough mix included, Free file delivery",pop:true},{n:"Full day",p:"250",u:"8 hours",f:"All rooms and gear, One mixed song, Priority scheduling",pop:false}],
+currency:"$",logo:"",showName:true,logoH:32,endpoint:"",pay:"",policy:"Cancel at least 24 hours before your session for a full refund.",blockedDates:"",audio:[{t:"Sample track 1",u:""},{t:"Sample track 2",u:""}],quotes:[],faq:[{q:"Do I need to bring anything?",a:"Bring your lyrics, instruments and any reference tracks."},{q:"How do I pay?",a:"A deposit holds your slot and the rest is paid on the day."}],contact:{address:"",phone:"",email:"",whatsapp:"",hours:"",map:""},
+social:{instagram:"",tiktok:"",youtube:"",x:"",facebook:"",spotify:""},blocked:"12:00,15:00",v:"#7B5CFF",a:"#2DE2D0"};
+/* ===== OPTIONAL LIVE BACKEND (Supabase) =====
+   Paste your project URL and anon (public) key to switch on: live availability, saved bookings,
+   settings that update for every visitor instantly, and a real email-and-password owner login.
+   Leave both empty to run without any backend. */
+const BACKEND={url:"",key:""};
+const sb=()=>BACKEND.url&&BACKEND.key;
+let tok=null,RB=null,TK=[];
+const H=a=>({apikey:BACKEND.key,Authorization:"Bearer "+(a&&tok?tok:BACKEND.key),"Content-Type":"application/json"});
+async function sbLogin(email,password){try{const r=await fetch(BACKEND.url+"/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:BACKEND.key,"Content-Type":"application/json"},body:JSON.stringify({email,password})});if(!r.ok)return false;tok=(await r.json()).access_token;return true}catch(e){return false}}
+async function taken(){if(!sb())return null;try{const r=await fetch(BACKEND.url+"/rest/v1/taken_slots?select=date,time",{headers:H()});return r.ok?await r.json():null}catch(e){return null}}
+async function loadRB(){try{const r=await fetch(BACKEND.url+"/rest/v1/bookings?select=*&order=created_at.desc",{headers:H(1)});RB=r.ok?await r.json():null}catch(e){RB=null}}
+async function pushSettings(){try{const d=JSON.parse(JSON.stringify(S));delete d.password;const r=await fetch(BACKEND.url+"/rest/v1/settings",{method:"POST",headers:{...H(1),Prefer:"resolution=merge-duplicates,return=minimal"},body:JSON.stringify({id:1,data:d})});return r.ok}catch(e){return false}}
+function loginModal(){return new Promise(res=>{
+ const d=document.createElement("div");d.className="lgw";document.body.appendChild(d);
+ const close=v=>{d.remove();res(v)};let fails=0,lock=0;
+ 
+ const shell=h=>{d.innerHTML=`<div class="lgc" role="dialog" aria-modal="true"><div class="lgl">${S.logo?`<img src="${esc(S.logo)}" alt="" style="height:32px">`:logo}${esc(S.name)}</div>${h}<button type="button" class="lgx" aria-label="Close">✕</button></div>`;d.querySelector(".lgx").onclick=()=>close(false)};
+ const err=m=>{d.querySelector(".err").textContent=m},busy=(b,on,t)=>{b.disabled=on;b.textContent=t};
+ const api=async(p,o)=>{try{const r=await fetch(BACKEND.url+"/auth/v1"+p,{method:o?"POST":"GET",headers:H(1),body:o?JSON.stringify(o):undefined});return{ok:r.ok,j:await r.json().catch(()=>({}))}}catch(e){return{ok:false,j:{}}}};
+ const code=(id,extra)=>{shell(`<h2>Two-step verification</h2><p>${extra?"Scan this QR code with an authenticator app such as Google Authenticator, Authy or 1Password, then enter the 6-digit code.":"Enter the 6-digit code from your authenticator app."}</p>${extra||""}<form><input class="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required aria-label="6-digit code"><span class="err" role="alert"></span><button class="btn">Verify</button></form>`);
+  const f=d.querySelector("form"),i=f.querySelector("input");i.focus();
+  f.onsubmit=async e=>{e.preventDefault();const b=f.querySelector(".btn");busy(b,1,"Checking…");
+   const c=await api("/factors/"+id+"/challenge",{});const v=c.ok&&await api("/factors/"+id+"/verify",{challenge_id:c.j.id,code:i.value});
+   if(v&&v.ok){tok=v.j.access_token;close(true)}else{busy(b,0,"Verify");i.value="";err("That code did not work. Try the newest one.")}}};
+ const enroll=async()=>{const r=await api("/factors",{factor_type:"totp",friendly_name:"Kenwave "+Date.now()});
+  if(!r.ok){step1();return err("Could not set up two-step verification.")}
+  code(r.j.id,`<img class="qr" alt="QR code" src="${r.j.totp.qr_code}"><p class="sec">Or type this key: ${esc(r.j.totp.secret)}</p>`)};
+ const mfa=async()=>{const u=await api("/user");const fa=(u.j.factors||[]).find(x=>x.factor_type==="totp"&&x.status==="verified");fa?code(fa.id):enroll()};
+ const step1=()=>{shell(`<h2>Owner sign in</h2><p>${sb()?"Use the email and password for this studio.":"Enter the owner password."}</p><form>${sb()?`<label>Email</label><input type="email" autocomplete="username" required>`:""}<label>Password</label><div class="pw"><input type="password" autocomplete="current-password" required><button type="button" class="eye">Show</button></div><span class="err" role="alert"></span><button class="btn">Sign in</button></form>${sb()?"":`<p class="note">This lock is only a convenience. Connect the backend for a real login and two-step verification.</p>`}`);
+  const f=d.querySelector("form"),ins=f.querySelectorAll("input"),pw=ins[ins.length-1],em=sb()?ins[0]:null,eye=f.querySelector(".eye");
+  (em||pw).focus();eye.onclick=()=>{const s=pw.type==="password";pw.type=s?"text":"password";eye.textContent=s?"Hide":"Show"};
+  f.onsubmit=async e=>{e.preventDefault();if(Date.now()<lock)return err("Too many attempts. Wait 30 seconds and try again.");
+   const b=f.querySelector(".btn");busy(b,1,"Signing in…");const ok=sb()?await sbLogin(em.value,pw.value):pw.value===S.password;
+   if(!ok){if(++fails>=5){lock=Date.now()+30000;fails=0}busy(b,0,"Sign in");return err(sb()?"Wrong email or password.":"Wrong password.")}
+   sb()?mfa():close(true)}};
+ step1()})}
+const PRESETS=[["Wave","#7B5CFF","#2DE2D0"],["Sunset","#FF5E7E","#FFB347"],["Ocean","#2F7BFF","#5FE0FF"],["Emerald","#1FBF75","#9BF0C2"],["Gold","#D4A94F","#F1E0B0"]];
+const clone=o=>JSON.parse(JSON.stringify(o));
+const merge=(d,s)=>{for(const k in s){if(s[k]&&typeof s[k]==="object"&&!Array.isArray(s[k])&&d[k])merge(d[k],s[k]);else d[k]=s[k]}return d};
+/* ADAPTERS: replace these bodies with Firebase, Supabase or your API so edits reach every visitor. */
+function loadSettings(){try{return merge(clone(DEFAULTS),JSON.parse(localStorage.getItem("kw_settings")||"{}"))}catch(e){return clone(DEFAULTS)}}
+function saveSettings(S){try{localStorage.setItem("kw_settings",JSON.stringify(S));return true}catch(e){return false}}
+let S=loadSettings();const $=s=>document.querySelector(s);
+const get=(o,p)=>p.split(".").reduce((x,k)=>x&&x[k],o);
+const set=(o,p,v)=>{const k=p.split(".");const l=k.pop();k.reduce((x,i)=>x[i],o)[l]=v};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const SOC={instagram:["Instagram","https://instagram.com/"],tiktok:["TikTok","https://tiktok.com/@"],youtube:["YouTube","https://youtube.com/@"],x:["X","https://x.com/"],facebook:["Facebook","https://facebook.com/"],spotify:["Spotify","https://open.spotify.com/artist/"]};
+const SLOTS=["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"];
+
+
+const logo=`<svg viewBox="0 0 30 22" fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"><defs><linearGradient id="lg"><stop stop-color="#7B5CFF"/><stop offset="1" stop-color="#2DE2D0"/></linearGradient></defs><path d="M2 11h3M9 5v12M15 2v18M21 6v10M27 9v4"/></svg>`;
+/* ===== 4. OWNER SIDE ===== */
+const mo=$("#mo"),toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2200)};
+let tab="Media",authed=false;
+async function openAdmin(){if(!authed){if(!(await loginModal()))return;authed=true;if(!sb()){try{localStorage.setItem("kw_owner","1")}catch(e){}}}
+ $("#adm").classList.add("show");drawAdmin()}
+const fld=(l,p,t="text")=>`<div><label>${l}</label><input type="${t}" data-p="${p}" value="${esc(get(S,p)??"")}"></div>`;
+function drawAdmin(){
+ $("#tabs").innerHTML=`<h3 style="padding:.5rem .9rem 1rem;font-size:1rem">${esc(S.name)} Owner</h3>`+["Media","Content","Pricing","Contact","Extras","Bookings","Theme","Publish"].map(t=>`<button class="${t===tab?"on":""}" data-t="${t}">${t}</button>`).join("")+`<button data-t="exit" style="margin-top:auto">Log out</button>`;
+ let h=`<h2>${tab}</h2>`;
+ if(tab==="Media")h+=`<p style="margin:.4rem 0">Only the hero, studio tour and booking sections use media backgrounds. Paste a link or upload a file. Large videos should be hosted online and pasted as a link, because browser storage is small.</p>`+[["hero","Hero (top of site)"],["tour","Studio tour"],["booking","Booking section"]].map(([k,l])=>`<div class="ar"><h3>${l}</h3><div><label>Type</label><select data-p="media.${k}.type"><option value="image"${S.media[k].type==="image"?" selected":""}>Image</option><option value="video"${S.media[k].type==="video"?" selected":""}>Video</option></select></div>${fld("Link (URL)","media."+k+".src")}${fld("Video poster image link","media."+k+".poster")}<div><label>Or upload a file</label><input type="file" accept="image/*,video/*" data-up="${k}"></div><div><button class="btn g" data-clr="${k}">Reset to default</button></div></div>`).join("");
+ if(tab==="Content")h+=`<div class="ar"><h3>Basics</h3>${fld("Studio name","name")}${fld("Tagline","tagline")}<div style="grid-column:1/-1"><label>About text</label><textarea rows="3" data-p="about">${esc(S.about)}</textarea></div></div><div class="ar"><h3>Stats (number, label)</h3>${S.stats.map((s,i)=>fld("Number","stats."+i+".0")+fld("Label","stats."+i+".1")).join("")}</div><div class="ar"><h3>Services</h3></div>`+S.services.map((s,i)=>`<div class="ar">${fld("Name","services."+i+".n")}${fld("Description","services."+i+".d")}${fld("Price per hour","services."+i+".p")}<div><button class="btn g" data-del="${i}">Delete</button></div></div>`).join("")+`<button class="btn g" id="addsv">Add a service</button>`;
+ if(tab==="Pricing")h+=`<div class="ar"><h3>Currency</h3>${fld("Symbol","currency")}</div>`+S.tiers.map((t,i)=>`<div class="ar"><h3>Tier ${i+1}</h3>${fld("Name","tiers."+i+".n")}${fld("Price","tiers."+i+".p")}${fld("Unit text","tiers."+i+".u")}${fld("Features (comma separated)","tiers."+i+".f")}<div><label>Most popular</label><select data-p="tiers.${i}.pop"><option value="false">No</option><option value="true"${t.pop?" selected":""}>Yes</option></select></div></div>`).join("")+`<p>Hourly rates used by the booking estimate are edited under Content, in Services.</p>`;
+ if(tab==="Contact")h+=`<div class="ar"><h3>Location and contact</h3>${fld("Address","contact.address")}${fld("Map link","contact.map")}${fld("Phone","contact.phone")}${fld("Email","contact.email")}${fld("WhatsApp number (with country code)","contact.whatsapp")}${fld("Opening hours","contact.hours")}</div><div class="ar"><h3>Booking delivery (no database needed)</h3>${fld("Form endpoint link (Formspree or Web3Forms)","endpoint")}<p style="grid-column:1/-1">Paste a free Formspree or Web3Forms link and every booking is emailed to you automatically. Leave it empty and visitors will send their request to your WhatsApp or email with one tap.</p></div><div class="ar"><h3>Social handles or links</h3>${Object.keys(SOC).map(k=>fld(SOC[k][0],"social."+k)).join("")}</div><p>Empty fields stay hidden on the public site.</p>`;
+ if(tab==="Extras"){const LS=(k,t,fs)=>`<div class="ar"><h3>${t}</h3></div>`+S[k].map((x,i)=>`<div class="ar">${fs.map(f=>fld(f[0],k+"."+i+"."+f[1])).join("")}<div><button class="btn g" data-dl="${k}:${i}">Delete</button></div></div>`).join("")+`<button class="btn g" data-ad="${k}">Add</button>`;
+  h+=LS("audio","Music showcase (link to an MP3 or audio file)",[["Track title","t"],["Audio link","u"]])+LS("quotes","Testimonials",[["Artist name","n"],["Quote","t"]])+LS("faq","FAQ",[["Question","q"],["Answer","a"]])}
+ if(tab==="Publish")h+=`<div class="ar"><h3>Make your changes live for every visitor</h3><p style="grid-column:1/-1">1. Click Download settings.json. 2. Upload that file to your hosting, in the same folder as index.html, named exactly settings.json. 3. Refresh the site. Until then your edits show only in this browser. Host your images, videos and audio in a media folder and paste their paths (for example media/hero.jpg) rather than uploading, so the file stays small. The password is stored in this file, so use one you use nowhere else.</p><div><button class="btn" id="ex2">Download settings.json</button></div></div>`;
+ if(tab==="Bookings"){const L=tok&&RB?RB:JSON.parse(localStorage.getItem("kw_bookings")||"[]");
+  h+=`<div class="ar"><h3>Block time slots (comma separated, e.g. 12:00,15:00)</h3>${fld("Blocked slots","blocked")}${fld("Blocked dates (YYYY-MM-DD, comma separated)","blockedDates")}${fld("Deposit or payment link","pay")}${fld("Cancellation policy","policy")}</div>`+(L.length?L.map((b,i)=>`<div class="ar"><div><b>${esc(b.name)}</b><br>${esc(b.service)}<br>${esc(b.date)} ${esc(b.time)}, ${esc(b.hours)} hr</div><div>${esc(b.email)}<br>${esc(b.phone)}<br>${S.currency}${esc(b.total)}</div><div><label>Status</label><select data-bs="${i}">${["new","confirmed","cancelled"].map(s=>`<option${b.status===s?" selected":""}>${s}</option>`).join("")}</select></div></div>`).join(""):`<p>No bookings yet.</p>`)}
+ if(tab==="Theme")h+=`<div class="ar"><h3>Logo</h3>${fld("Logo link (URL)","logo")}${fld("Logo height (pixels)","logoH","number")}<div><label>Show studio name beside logo</label><select data-p="showName"><option value="true">Yes</option><option value="false"${S.showName===false?" selected":""}>No</option></select></div><div><label>Or upload a logo</label><input type="file" accept="image/*" data-logo="1"></div><div><button class="btn g" data-nologo="1">Use default logo</button></div></div><div class="ar"><h3>Color presets</h3>${PRESETS.map((p,i)=>`<div><button class="btn" data-pre="${i}" style="background:linear-gradient(100deg,${p[1]},${p[2]});width:100%">${p[0]}</button></div>`).join("")}</div><div class="ar"><h3>Custom colors and access</h3><div><label>Primary</label><input type="color" data-p="v" value="${S.v}"></div><div><label>Secondary</label><input type="color" data-p="a" value="${S.a}"></div>${fld("Owner password","password")}</div>`;
+ h+=`<div class="bar"><button class="btn" id="sv2">Save changes</button><button class="btn g" id="pv">Preview site</button><button class="btn g" id="ex">Export JSON</button><label class="btn g" style="margin:0">Import<input type="file" id="im" accept=".json" hidden></label><button class="btn g" id="rs">Reset all</button></div>`;
+ $("#pane").innerHTML=h}
+$("#adm").addEventListener("click",e=>{const t=e.target.closest("button");if(!t)return;
+ if(t.dataset.t){if(t.dataset.t==="exit"){location.reload();return}tab=t.dataset.t;if(tab==="Bookings"&&tok)loadRB().then(drawAdmin);else drawAdmin()}
+ if(t.dataset.clr){S.media[t.dataset.clr]={type:DEFAULTS.media[t.dataset.clr].type,src:"",poster:""};drawAdmin()}
+ if(t.dataset.del){S.services.splice(+t.dataset.del,1);drawAdmin()}
+ if(t.dataset.pre){const p=PRESETS[+t.dataset.pre];S.v=p[1];S.a=p[2];document.documentElement.style.setProperty("--v",S.v);document.documentElement.style.setProperty("--a",S.a);drawAdmin()}
+ if(t.dataset.nologo){S.logo="";drawAdmin()}
+ if(t.dataset.dl){const[k,i]=t.dataset.dl.split(":");S[k].splice(+i,1);drawAdmin()}
+ if(t.dataset.ad){S[t.dataset.ad].push({audio:{t:"New track",u:""},quotes:{n:"Artist name",t:"Quote"},faq:{q:"Question",a:"Answer"}}[t.dataset.ad]);drawAdmin()}
+ if(t.id==="addsv"){S.services.push({n:"New service",d:"Describe it here.",p:30});drawAdmin()}
+ if(t.id==="sv2"){const ok=saveSettings(S);if(tok)pushSettings().then(r=>toast(r?"Saved and live for every visitor":"Saved here, but the live update failed"));else toast(ok?"Saved on this browser":"Storage is full. Use a link for large media.")}
+ if(t.id==="pv"){saveSettings(S);window.open(SITE_URL,"_blank")}
+ if(t.id==="ex"||t.id==="ex2"){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:"application/json"}));a.download="settings.json";a.click()}
+ if(t.id==="rs"&&confirm("Reset everything to defaults?")){S=clone(DEFAULTS);saveSettings(S);drawAdmin()}});
+$("#adm").addEventListener("input",e=>{const el=e.target,p=el.dataset.p;if(p){let v=el.value;if(v==="true")v=true;if(v==="false")v=false;set(S,p,v)}
+ if(el.dataset.bs!==undefined){if(tok&&RB){RB[el.dataset.bs].status=el.value;fetch(BACKEND.url+"/rest/v1/bookings?id=eq."+RB[el.dataset.bs].id,{method:"PATCH",headers:{...H(1),Prefer:"return=minimal"},body:JSON.stringify({status:el.value})})}else{const L=JSON.parse(localStorage.getItem("kw_bookings")||"[]");L[el.dataset.bs].status=el.value;localStorage.setItem("kw_bookings",JSON.stringify(L))}}});
+$("#adm").addEventListener("change",e=>{const el=e.target;
+ if(el.dataset.logo){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{S.logo=r.result;if(!saveSettings(S))toast("Logo too large. Use a link instead.");else toast("Logo updated");drawAdmin()};r.readAsDataURL(f)}
+ if(el.dataset.up){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{S.media[el.dataset.up].src=r.result;S.media[el.dataset.up].type=f.type.startsWith("video")?"video":"image";if(!saveSettings(S))toast("File too large to store. Host it online and paste the link.");else toast("Uploaded");drawAdmin()};r.readAsDataURL(f)}
+ if(el.id==="im"){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{S=merge(clone(DEFAULTS),JSON.parse(r.result));saveSettings(S);drawAdmin();toast("Imported")}catch(_){toast("Invalid file")}};r.readAsText(f)}});
+/* On load: defaults, then the published settings.json, then this browser's draft, then the live database. Then ask for login. */
+(async()=>{try{const r=await fetch(SETTINGS_URL,{cache:"no-store"});if(r.ok){const j=await r.json();S=merge(merge(clone(DEFAULTS),j),JSON.parse(localStorage.getItem("kw_settings")||"{}"))}}catch(e){}
+ if(sb()){try{const r=await fetch(BACKEND.url+"/rest/v1/settings?id=eq.1&select=data",{headers:H()});const j=r.ok?await r.json():[];if(j[0]&&j[0].data)S=merge(S,j[0].data)}catch(e){}}
+ while(!authed)await openAdmin()})();</script></body></html>
